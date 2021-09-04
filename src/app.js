@@ -3,6 +3,7 @@ const app = express();
 const port = 3001;
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
 const routes = require("./router");
 
 const mongoose = require("mongoose");
