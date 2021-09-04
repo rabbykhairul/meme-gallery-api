@@ -5,4 +5,4 @@ const memeSchema = new mongoose.Schema({
   base64Image: String,
 }, { timestamps: true });
 
-module.exports = new mongoose.model("Memes", memeSchema);
+module.exports = mongoose.model("Memes", memeSchema);
