@@ -1,14 +1,17 @@
 const fs = require("fs");
+const path = require("path");
 
-const getBase64StringFromBufferData = (bufferData) => {
+const getBase64String = (filePath, mimeType = "image/jpg") => {
   console.log("\n---");
-  console.log("bufferData: ", bufferData);
+  console.log("filePath: ", filePath);
   console.log("---\n");
+
   try {
-    return bufferData.toString("base64");
+    const base64String = fs.readFileSync(filePath, { encoding: "base64" });
+    return `data:${mimeType};base64,${base64String}`;
   } catch (err) {
     return null;
   }
 };
 
-module.exports = { getBase64StringFromBufferData };
+module.exports = { getBase64String, saveUploadedFile };
