@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3001;
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 const routes = require("./router");
 
 const mongoose = require("mongoose");
@@ -21,6 +22,7 @@ mongoose.connection.on("connected", () => {
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(fileUpload());
 
 app.use(routes);
 
