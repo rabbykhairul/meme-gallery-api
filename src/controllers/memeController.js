@@ -18,4 +18,24 @@ const uploadMeme = async (req, res) => {
   }
 }
 
-module.exports = { uploadMeme };
+const getMemes = async (req, res) => {
+  const memes = await Memes.aggregate([
+    { $match: {} },
+    { $sort: { createdAt: 1 } },
+    { $project: { _id: 1 } },
+    { 
+      $group: {
+        _id: null,
+        ids: { $push: "$_id" }
+      }
+    }
+  ]);
+
+  console.log("\n---");
+  console.log("memes: ", memes);
+  console.log("---\n");
+
+  return res.json({ success: true, memes: memes[0].ids });
+}
+
+module.exports = { uploadMeme, getMemes };
