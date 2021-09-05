@@ -4,8 +4,8 @@ const { getBase64String, saveUploadedFile } = require("../utils/helper");
 const uploadMeme = async (req, res) => {
   try {
     const { body: { url }, files } = req;
-    const uploadedFilePath = await saveUploadedFile(files?.memeFile);
-    const base64Image = getBase64String(uploadedFilePath, files?.memeFile?.mimetype);
+    const uploadedFilePath = files ? await saveUploadedFile(files?.memeFile) : "";
+    const base64Image = uploadedFilePath? getBase64String(uploadedFilePath, files?.memeFile?.mimetype) : "";
     
     const newMeme = new Memes({ url, base64Image });
     await newMeme.save();
@@ -44,7 +44,7 @@ const getMemeById = async (req, res) => {
 
   try {
     const meme = await Memes.findById(id);
-    return res.json(meme);
+    return res.json({ success: true, meme });
   } catch (err) {
     console.log("\n---");
     console.log("err: ", err);
