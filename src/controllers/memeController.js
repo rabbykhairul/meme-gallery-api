@@ -36,7 +36,7 @@ const getMemes = async (req, res) => {
   console.log("memes: ", memes);
   console.log("---\n");
 
-  return res.json({ success: true, memes: memes[0].ids });
+  return res.json({ success: true, memes: memes[0]?.ids || [] });
 }
 
 const getMemeById = async (req, res) => {
