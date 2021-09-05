@@ -1,6 +1,22 @@
 const fs = require("fs");
 const path = require("path");
 
+const SHORT_MONTH_NAMES= [
+  "",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
+
 const getBase64String = (filePath, mimeType = "image/jpg") => {
   console.log("\n---");
   console.log("filePath: ", filePath);
@@ -35,4 +51,10 @@ const saveUploadedFile = async (file, folder = "/temp/") => {
   }
 )};
 
-module.exports = { getBase64String, saveUploadedFile };
+const getShortMonthAndDayNumFromDateString = (dateString) => {
+  const [ day, month ] = dateString?.split("-");
+  
+  return `${SHORT_MONTH_NAMES[Number(month)]} ${day}`;
+};
+
+module.exports = { getBase64String, saveUploadedFile, getShortMonthAndDayNumFromDateString };
