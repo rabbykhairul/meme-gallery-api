@@ -1,10 +1,11 @@
 const Memes = require("../models/meme");
-const { getBase64StringFromBufferData } = require("../utils/helper");
+const { getBase64String, saveUploadedFile } = require("../utils/helper");
 
 const uploadMeme = async (req, res) => {
   try {
     const { body: { url }, files } = req;
-    const base64Image = getBase64StringFromBufferData(files?.memeFile?.data);
+    const uploadedFilePath = await saveUploadedFile(files?.memeFile);
+    const base64Image = getBase64String(uploadedFilePath, files?.memeFile?.mimetype);
     
     const newMeme = new Memes({ url, base64Image });
     await newMeme.save();
