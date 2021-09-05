@@ -39,4 +39,18 @@ const getMemes = async (req, res) => {
   return res.json({ success: true, memes: memes[0].ids });
 }
 
-module.exports = { uploadMeme, getMemes };
+const getMemeById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const meme = await Memes.findById(id);
+    return res.json(meme);
+  } catch (err) {
+    console.log("\n---");
+    console.log("err: ", err);
+    console.log("---\n");
+    return res.status(500).json({ success: false });
+  }
+}
+
+module.exports = { uploadMeme, getMemes, getMemeById };
