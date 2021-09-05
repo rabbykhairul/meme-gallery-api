@@ -53,4 +53,19 @@ const getMemeById = async (req, res) => {
   }
 }
 
-module.exports = { uploadMeme, getMemes, getMemeById };
+const deleteMemeById = async(req, res) => {
+  const { id } = req.params;
+
+  try {
+    await Memes.findByIdAndDelete(id);
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.log("\n---");
+    console.log("err: ", err);
+    console.log("---\n");
+
+    res.status(500).json({ success: false });
+  }
+}
+
+module.exports = { uploadMeme, getMemes, getMemeById, deleteMemeById };
